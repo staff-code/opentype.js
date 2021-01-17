@@ -254,6 +254,15 @@ Layout.prototype = {
                 lookupTable = allLookups[lookupListIndexes[i]];
                 if (lookupTable.lookupType === lookupType) {
                     tables.push(lookupTable);
+                } else if (lookupTable.lookupType === 7) {
+                    const mungedTable = {
+                        lookupType: 4,
+                        lookupFlag: 0,
+                        subtables: [
+                            lookupTable.subtables[0].extension
+                        ]
+                    };
+                    tables.push(mungedTable);
                 }
             }
             if (tables.length === 0 && create) {
